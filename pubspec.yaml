@@ -16,6 +16,10 @@ dependencies:
   
   cupertino_icons: ^1.0.8
   flutter_launcher_icons: ^0.14.2
+  get: ^4.6.6
+  iconsax: ^0.0.8
+  firebase_core: ^3.9.0
+  flutter_svg: ^2.0.16
 
 flutter_launcher_icons:
   ios: true
@@ -33,4 +37,6 @@ flutter:
 
   assets:
     - assets/
+    - assets/svg/
+    - assets/on_boarding/
   uses-material-design: true
