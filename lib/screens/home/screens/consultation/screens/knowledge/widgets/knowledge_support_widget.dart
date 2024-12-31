@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:medcall/util/size.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SupportButton extends StatelessWidget {
@@ -31,40 +31,40 @@ class SupportButton extends StatelessWidget {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      Get.snackbar('Ошибка', 'Не удалось открыть приложение');
+      Get.snackbar(
+        'Ошибка',
+        'Не удалось открыть приложение. Проверьте наличие установленного приложения.',
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    IconData icon;
-    String label;
+    String path = "assets/svg/default.svg"; // Файл по умолчанию
     Color? color;
 
     switch (index) {
       case 0:
-        icon = Icons.telegram;
-        label = 'Telegram';
-        color = Colors.blue;
+        path = "assets/svg/telegram.svg";
+        color = Colors.grey.shade100;
         break;
       case 1:
-        icon = Icons.phone;
-        label = 'WhatsApp';
-        color = Colors.green;
+        path = "assets/svg/whatsapp.svg";
+        color = Colors.grey.shade100;
         break;
       case 2:
-        icon = Icons.phone;
-        label = 'Позвонить';
-        color = Colors.grey;
+        path = "assets/svg/google.svg";
+        color = Colors.grey.shade100;
         break;
       case 3:
-        icon = Icons.email;
-        label = 'Написать';
-        color = Colors.orangeAccent;
+        path = "assets/svg/gmail.svg";
+        color = Colors.grey.shade100;
         break;
-      default:
-        icon = Icons.help;
-        label = 'Помощь';
+    }
+
+    if (color == null || path.isEmpty) {
+      return const SizedBox.shrink();
     }
 
     return GestureDetector(
@@ -82,7 +82,12 @@ class SupportButton extends StatelessWidget {
             ),
           ],
         ),
-        child: Icon(icon, color: Colors.white, size: ScreenSize(context).height * 0.07)
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SvgPicture.asset(
+            path
+          ),
+        ),
       ),
     );
   }

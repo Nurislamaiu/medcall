@@ -8,6 +8,7 @@ import 'package:medcall/screens/home/home_screen.dart';
 import '../screens/auth/register/register_screen.dart';
 import '../screens/home/screens/consultation/consultation_screen.dart';
 import '../screens/home/screens/consultation/screens/knowledge/knowledge_screen.dart';
+import '../screens/home/screens/consultation/screens/request_consultation/request_consultation_screen.dart';
 import '../screens/home/screens/massage_services_screen.dart';
 import '../screens/home/screens/services_screen.dart';
 
@@ -22,6 +23,7 @@ class AppRoutes {
   static const String massageService = '/massageService';
   static const String consultation = '/consultation';
   static const String knowledge = '/knowledge';
+  static const String requestConsultation = '/requestConsultation';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -35,6 +37,7 @@ class AppRoutes {
       massageService: (context) => MassageServiceScreen(),
       consultation: (context) => ConsultationScreen(),
       knowledge: (context) => KnowledgeBaseScreen(),
+      requestConsultation: (context) => RequestConsultationScreen(),
     };
   }
 }
