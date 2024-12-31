@@ -5,7 +5,7 @@ import '../../../../util/color.dart';
 import '../../../../widgets/custom_text_filed.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key}); // Добавлен key для соответствия best practices
+  const LoginForm({Key? key}) : super(key: key);
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -29,6 +29,27 @@ class _LoginFormState extends State<LoginForm> {
     super.dispose();
   }
 
+  String? _emailValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Введите адрес электронной почты';
+    }
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+    if (!emailRegex.hasMatch(value)) {
+      return 'Некорректный формат почты';
+    }
+    return null;
+  }
+
+  String? _passwordValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Введите пароль';
+    }
+    if (value.length < 6) {
+      return 'Пароль должен быть не менее 6 символов';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,13 +59,15 @@ class _LoginFormState extends State<LoginForm> {
           controller: emailController,
           label: 'Почта',
           icon: Iconsax.sms,
+          validator: _emailValidator,
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         CustomTextField(
           controller: passwordController,
           label: 'Пароль',
           icon: Iconsax.lock,
           obscureText: true,
+          validator: _passwordValidator,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -52,7 +75,9 @@ class _LoginFormState extends State<LoginForm> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/forgotPassword');
+                },
                 child: Text(
                   'Забыл пароль?',
                   style: TextStyle(

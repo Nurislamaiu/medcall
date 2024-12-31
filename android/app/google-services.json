@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "203743430399",
+    "project_id": "medcall-astana",
+    "storage_bucket": "medcall-astana.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:203743430399:android:e913b74074aad94d526eca",
+        "android_client_info": {
+          "package_name": "com.example.medcall"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABFLzqgn3K3qoVVmuT2NFqBVXbWkrJYw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
