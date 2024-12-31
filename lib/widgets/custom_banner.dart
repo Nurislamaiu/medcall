@@ -3,53 +3,77 @@ import 'package:flutter/material.dart';
 import '../util/color.dart';
 import '../util/size.dart';
 
-class CustomBanner extends StatelessWidget {
-  const CustomBanner({
-    super.key, required this.title, required this.child,
+class CustomBannerOur extends StatelessWidget {
+  const CustomBannerOur({
+    super.key,
+    required this.title,
+    required this.subTitle,
+    this.isButton = true, // добавляем параметр с значением по умолчанию
   });
 
   final String title;
-  final Widget child;
+  final String subTitle;
+  final bool isButton;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: ScreenSize(context).height * 0.30,
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [ScreenColor.color6, ScreenColor.color6.withOpacity(0.2)],
+          colors: [
+            ScreenColor.color6,
+            ScreenColor.color6.withOpacity(0.2)
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(20),
-          bottomRight: Radius.circular(20),
+          bottomLeft: Radius.circular(30),
+          bottomRight: Radius.circular(30),
         ),
         boxShadow: [
           BoxShadow(
             color: ScreenColor.color6.withOpacity(0.5),
             blurRadius: 20,
-            offset: Offset(0, 10),
+            offset: const Offset(0, 10),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+               Text(
+                 title,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: ScreenColor.white,
+                ),
+              ),
+              if (isButton)
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.close, color: Colors.white),
+                ),
+            ],
+          ),
           Text(
-          title,
-            style: const TextStyle(
-              fontSize: 24,
+            subTitle,
+            style: TextStyle(
+              fontSize: 16,
               fontWeight: FontWeight.bold,
               color: ScreenColor.white,
             ),
           ),
-          SizedBox(height: 10),
-          child
         ],
       ),
     );

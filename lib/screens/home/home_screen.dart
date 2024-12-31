@@ -4,7 +4,7 @@ import 'package:medcall/screens/home/widgets/advertising_widget.dart';
 
 import '../../util/color.dart';
 import '../../util/size.dart';
-import '../../widgets/custom_banner.dart';
+import '../../widgets/custom_home_banner.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -36,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: Text('Оставить заявку'),
             ),),
+
             SizedBox(height: ScreenSize(context).height * 0.05),
             // Кнопки быстрого действия
             ActionButtons(),

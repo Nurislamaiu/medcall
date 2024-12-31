@@ -29,7 +29,7 @@ class ActionButtons extends StatelessWidget {
             label: 'Maccaж',
             color: ScreenColor.color6,
             onTap: () {
-              Navigator.pushNamed(context, '/service');
+              Navigator.pushNamed(context, '/massageService');
             },
           ),
           ActionButton(

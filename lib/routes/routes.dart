@@ -6,6 +6,10 @@ import 'package:medcall/screens/auth/on_boarding/on_boarding_screen.dart';
 import 'package:medcall/screens/home/home_screen.dart';
 
 import '../screens/auth/register/register_screen.dart';
+import '../screens/home/screens/consultation/consultation_screen.dart';
+import '../screens/home/screens/consultation/screens/knowledge/knowledge_screen.dart';
+import '../screens/home/screens/massage_services_screen.dart';
+import '../screens/home/screens/services_screen.dart';
 
 class AppRoutes {
   static const String onBoarding = '/onBoarding';
@@ -14,6 +18,10 @@ class AppRoutes {
   static const String forgotPassword = '/forgotPassword';
   static const String navBar = '/navBar';
   static const String home = '/home';
+  static const String service = '/service';
+  static const String massageService = '/massageService';
+  static const String consultation = '/consultation';
+  static const String knowledge = '/knowledge';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -23,6 +31,10 @@ class AppRoutes {
       forgotPassword: (context) => ForgotPasswordScreen(),
       navBar: (context) => NavBarScreen(),
       home: (context) => HomeScreen(),
+      service: (context) => ServiceScreen(),
+      massageService: (context) => MassageServiceScreen(),
+      consultation: (context) => ConsultationScreen(),
+      knowledge: (context) => KnowledgeBaseScreen(),
     };
   }
 }

@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.onBoarding,
+      initialRoute: AppRoutes.navBar,
       routes: AppRoutes.getRoutes(),
     );
   }
