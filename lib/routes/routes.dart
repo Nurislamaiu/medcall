@@ -11,6 +11,8 @@ import '../screens/home/screens/consultation/screens/knowledge/knowledge_screen.
 import '../screens/home/screens/consultation/screens/request_consultation/request_consultation_screen.dart';
 import '../screens/home/screens/massage_services_screen.dart';
 import '../screens/home/screens/services_screen.dart';
+import '../screens/requests/requests_screen.dart';
+import '../screens/requests/screens/requests_new/requests_new_screen.dart';
 
 class AppRoutes {
   static const String onBoarding = '/onBoarding';
@@ -24,6 +26,8 @@ class AppRoutes {
   static const String consultation = '/consultation';
   static const String knowledge = '/knowledge';
   static const String requestConsultation = '/requestConsultation';
+  static const String requests = '/requests';
+  static const String requestsNew = '/requestsNew';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -38,6 +42,8 @@ class AppRoutes {
       consultation: (context) => ConsultationScreen(),
       knowledge: (context) => KnowledgeBaseScreen(),
       requestConsultation: (context) => RequestConsultationScreen(),
+      requests: (context) => RequestScreen(),
+      requestsNew: (context) => RequestNewScreen(),
     };
   }
 }

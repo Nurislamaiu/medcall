@@ -51,7 +51,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               },
               child: Text(
                 'Пропустить',
-                style: TextStyle(fontSize: 16, color: ScreenColor.color2),
+                style: TextStyle(fontSize: 12, color: ScreenColor.color2),
               ),
             ),
           ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:medcall/screens/home/home_screen.dart';
+import 'package:medcall/screens/requests/requests_screen.dart';
 import 'package:medcall/util/color.dart';
 
 class NavBarScreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
 
   final List<Widget> _screens = [
     HomeScreen(),
-    Container(),
+    RequestScreen(),
     Container(),
     Container(),
   ];
