@@ -12,7 +12,13 @@ import '../screens/home/screens/consultation/screens/request_consultation/reques
 import '../screens/home/screens/massage_services_screen.dart';
 import '../screens/home/screens/services_screen.dart';
 import '../screens/requests/requests_screen.dart';
+import '../screens/requests/screens/requests_accepted/requests_accepted_screen.dart';
 import '../screens/requests/screens/requests_new/requests_new_screen.dart';
+import '../screens/settings/team_screen.dart';
+import '../screens/settings/user_agreement_screen.dart';
+import '../screens/settings/user_privacy_policy_screen.dart';
+import '../screens/settings/user_settings_screen.dart';
+import '../screens/settings/we_social_media_screen.dart';
 
 class AppRoutes {
   static const String onBoarding = '/onBoarding';
@@ -28,6 +34,13 @@ class AppRoutes {
   static const String requestConsultation = '/requestConsultation';
   static const String requests = '/requests';
   static const String requestsNew = '/requestsNew';
+  static const String settings = '/settings';
+  static const String agreement = '/agreement';
+  static const String privacyPolicy = '/privacy-policy';
+  static const String weSocialMedia = '/we-social-media';
+  static const String team = '/team';
+  static const String profileEdit = '/profile-edit';
+  static const String requestsAccept = '/requestsAccept';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -44,6 +57,12 @@ class AppRoutes {
       requestConsultation: (context) => RequestConsultationScreen(),
       requests: (context) => RequestScreen(),
       requestsNew: (context) => RequestNewScreen(),
+      settings: (context) => UserSettingsScreen(),
+      agreement: (context) => UserAgreementScreen(),
+      privacyPolicy: (context) => UserPrivacyPolicyScreen(),
+      weSocialMedia: (context) => WeSocialMedia(),
+      team: (context) => TeamScreen(),
+      requestsAccept: (context) => RequestsAcceptedScreen(),
     };
   }
 }

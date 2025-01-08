@@ -40,14 +40,6 @@ class ActionButtons extends StatelessWidget {
               Navigator.pushNamed(context, '/consultation');
             },
           ),
-          ActionButton(
-            icon: Iconsax.shop,
-            label: 'Аптека',
-            color: ScreenColor.color6,
-            onTap: () {
-              Navigator.pushNamed(context, '/consultation');
-            },
-          ),
         ],
       ),
     );

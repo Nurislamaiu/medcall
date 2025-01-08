@@ -8,7 +8,7 @@ class CustomBannerOur extends StatelessWidget {
     super.key,
     required this.title,
     required this.subTitle,
-    this.isButton = true, // добавляем параметр с значением по умолчанию
+    this.isButton = true,
   });
 
   final String title;

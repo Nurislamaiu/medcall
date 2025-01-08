@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../../util/color.dart';
+import '../screens/requests_edit/requests_edit_screen.dart';
 
 class RequestList extends StatelessWidget {
   RequestList({super.key});
@@ -12,17 +13,17 @@ class RequestList extends StatelessWidget {
   final List<Map<String, dynamic>> requests = [
     {
       'id': '1',
-      'service': 'Капельница',
-      'dateTime': DateTime.now().add(const Duration(days: 1)),
+      'service': 'Капельницы',
+      'dateTime': DateTime.now().add(const Duration(days: 3)),
     },
     {
       'id': '2',
-      'service': 'Внутривенная инъекция',
+      'service': 'Внутривенные инъекции',
       'dateTime': DateTime.now().add(const Duration(days: 2)),
     },
     {
       'id': '3',
-      'service': 'Перевязка',
+      'service': 'Перевязки',
       'dateTime': DateTime.now().subtract(const Duration(days: 1)),
     },
   ];
@@ -57,7 +58,17 @@ class RequestList extends StatelessWidget {
 
         return GestureDetector(
           onTap: () {
-            // Логика для редактирования заявки
+            // Navigate to EditRequestScreen with request details
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EditRequestScreen(
+                  requestId: request['id'], // Pass the request ID
+                  initialService: service, // Pass the selected service
+                  initialDate: dateTime, // Pass the initial date
+                ),
+              ),
+            );
           },
           child: Container(
             margin: const EdgeInsets.only(bottom: 20),

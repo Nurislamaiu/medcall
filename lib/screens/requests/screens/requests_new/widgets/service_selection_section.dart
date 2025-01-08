@@ -1,136 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:medcall/screens/requests/screens/requests_new/widgets/section_widget.dart';
 import '../../../../../util/color.dart';
-import '../controller/requests_controller.dart';
+import '../../../../../util/size.dart';
+import '../widgets/section_widget.dart';
 
-class ServiceSelectionSection extends StatelessWidget {
-  final RequestController controller;
+class SelectServiceSection extends StatelessWidget {
+  final List<String> services;
+  final String? selectedService;
+  final Function(String?) onServiceSelected;
+  final VoidCallback onSelectDate;
+  final VoidCallback onSelectTime;
+  final DateTime? selectedDate;
+  final TimeOfDay? selectedTime;
 
-  ServiceSelectionSection({required this.controller});
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2100),
-      barrierColor: Colors.black.withOpacity(0.8),
-      // Полупрозрачный фон
-      builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            datePickerTheme: DatePickerThemeData(
-              backgroundColor: ScreenColor.white,
-              // Цвет фона всего окна
-              headerBackgroundColor: ScreenColor.color6,
-              // Цвет фона заголовка
-              todayBackgroundColor:
-              MaterialStateProperty.all(ScreenColor.color6),
-              headerHelpStyle: TextStyle(color: Colors.white),
-              headerForegroundColor: Colors.white,
-
-              dayStyle: TextStyle(
-                // Цвет текста для всех дней
-                color: Colors.black,
-                fontWeight: FontWeight.normal,
-                fontSize: 14,
-              ),
-              cancelButtonStyle: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                // Прозрачный фон
-                foregroundColor: MaterialStateProperty.all(ScreenColor.color6),
-                // Цвет текста
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  side: BorderSide(color: ScreenColor.color6),
-                )),
-                padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-              ),
-              confirmButtonStyle: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(ScreenColor.color6),
-                // Цвет фона
-                foregroundColor: MaterialStateProperty.all(Colors.white),
-                // Белый текст
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                )),
-                padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-                elevation: MaterialStateProperty.all(5), // Легкая тень
-              ),
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
-    controller.setSelectedDate(picked);
-  }
-
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-      barrierColor: Colors.black.withOpacity(0.8),
-      builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: ThemeData.dark().copyWith(
-            timePickerTheme: TimePickerThemeData(
-              hourMinuteTextColor: Colors.white,
-              // Цвет текста для часов и минут
-              dialBackgroundColor: ScreenColor.color6,
-              // Цвет фона циферблата
-              entryModeIconColor: ScreenColor.color2,
-              // Цвет иконки выбора формата времени
-              backgroundColor: ScreenColor.white,
-              // Цвет фона всего окна
-              dialHandColor: Colors.black,
-              hourMinuteColor: ScreenColor.color6,
-              helpTextStyle: TextStyle(color: Colors.black),
-              timeSelectorSeparatorColor:
-              MaterialStateProperty.all(Colors.black),
-              dialTextColor: Colors.white,
-              cancelButtonStyle: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(ScreenColor.color2),
-              ),
-              confirmButtonStyle: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(ScreenColor.color2),
-              ),
-              hourMinuteShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), // Округленные края для времени
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
-    controller.setSelectedTime(picked);
-  }
+  const SelectServiceSection({
+    Key? key,
+    required this.services,
+    required this.selectedService,
+    required this.onServiceSelected,
+    required this.onSelectDate,
+    required this.onSelectTime,
+    this.selectedDate,
+    this.selectedTime,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Секция выбора услуги
         SectionWidget(
           title: 'Выберите услугу',
-          icon: Iconsax.menu,
+          icon: Icons.medical_information_outlined,
           content: DropdownButtonFormField<String>(
-            value: controller.selectedService.value.isNotEmpty
-                ? controller.selectedService.value
-                : null,
             dropdownColor: Colors.white,
-            onChanged: (value) {
-              controller.setSelectedService(value);
-            },
+            borderRadius: BorderRadius.circular(30),
             decoration: InputDecoration(
               border: InputBorder.none,
               filled: true,
               fillColor: Colors.white,
-              contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16, vertical: 12),
+              contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(color: Colors.grey.withOpacity(0.5)),
@@ -139,77 +46,84 @@ class ServiceSelectionSection extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(color: ScreenColor.color6, width: 2),
               ),
-              hintStyle: TextStyle(color: Colors.grey.shade600),
             ),
-            hint: const Text('Выберите услугу'),
-            items: [
-              'Внутримышечные инъекции',
-              'Внутривенные инъекции',
-              'Капельницы',
-              'Перевязки',
-              'Установка мочевого катетера и стом',
-              'Клизмы',
-              'Снятие алкогольной интоксикации',
-            ]
-                .map((service) => DropdownMenuItem<String>(
-              value: service,
-              child: Text(service, style: TextStyle(fontSize: 12),),
-            ))
-                .toList(),
+            value: selectedService,
+            items: services.map((entry) {
+              return DropdownMenuItem<String>(
+                value: entry,
+                child: Text(
+                  entry,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black87,
+                  ),
+                ),
+              );
+            }).toList(),
+            onChanged: onServiceSelected,
+            hint: Text(
+              'Выберите услугу',
+              style: TextStyle(color: Colors.grey.shade600),
+            ),
           ),
         ),
-        const SizedBox(height: 16),
-
+        SizedBox(height: ScreenSize(context).height * 0.04),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Секция выбора даты
             Expanded(
               child: SectionWidget(
                 title: 'Выберите дату',
-                icon: Iconsax.calendar,
-                content: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => _selectDate(context),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: ScreenColor.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                icon: Icons.calendar_today,
+                content: GestureDetector(
+                  onTap: onSelectDate,
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.grey.withOpacity(0.5)),
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                    child: Obx(
-                          () => Text(
-                        controller.selectedDate.value != null
-                            ? '${controller.selectedDate.value!.day}.${controller.selectedDate.value!.month}.${controller.selectedDate.value!.year}'
-                            : '',
-                        style: const TextStyle(color: Colors.black, fontSize: 12),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        selectedDate == null
+                            ? ''
+                            : '${selectedDate!.day}.${selectedDate!.month}.${selectedDate!.year}',
+                        style: const TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-            // Секция выбора времени
             Expanded(
               child: SectionWidget(
                 title: 'Выберите время',
-                icon: Iconsax.clock,
-                content: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => _selectTime(context),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: ScreenColor.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                icon: Icons.access_time,
+                content: GestureDetector(
+                  onTap: onSelectTime,
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.grey.withOpacity(0.5)),
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                    child: Obx(
-                          () => Text(
-                        controller.selectedTime.value != null
-                            ? '${controller.selectedTime.value!.hour.toString().padLeft(2, '0')}:${controller.selectedTime.value!.minute.toString().padLeft(2, '0')}'
-                            : '',
-                        style: const TextStyle(color: Colors.black, fontSize: 12),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        selectedTime == null
+                            ? ''
+                            : '${selectedTime!.hour.toString().padLeft(2, '0')}:${selectedTime!.minute.toString().padLeft(2, '0')}',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
